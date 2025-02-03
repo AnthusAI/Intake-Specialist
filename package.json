@@ -6,12 +6,13 @@
   "type": "module",
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node src/test-agent.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@langchain/core": "^0.1.48",
     "@langchain/openai": "^0.0.14",
     "dotenv": "^16.4.7",
     "inquirer": "^9.2.15",
