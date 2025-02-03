@@ -15,6 +15,29 @@ A simple demo of using a ReAct loop to manage a checklist of required items for 
   - Extracts and saves information from natural conversation
   - Validates completeness of gathered information
 
+## Running the Application
+
+### Interactive Mode
+```bash
+# Start the interactive chat
+npm start
+
+# Then chat with the agent to provide information
+# Type 'exit' to quit
+```
+
+### Testing Mode
+```bash
+# Run the automated test conversation
+npm test
+
+# Test just the OpenAI connection
+node src/test-llm.js
+
+# Test the prompt template
+node src/test-prompt.js
+```
+
 ## Example Conversation
 ```
 User: Hi there! I'm interested in discussing financing options.
@@ -59,21 +82,6 @@ npm install
 # Set up environment variables
 cp .env.example .env
 # Edit .env to add your OpenAI API key
-
-# Run the test conversation
-npm test
-```
-
-## Testing Interface
-```bash
-# Run a test conversation with predefined messages
-npm test
-
-# Test just the OpenAI connection
-node src/test-llm.js
-
-# Test the prompt template
-node src/test-prompt.js
 ```
 
 ## Project Structure
@@ -82,6 +90,7 @@ src/
   ├── agent.js      # ReAct agent implementation
   ├── tools.js      # State management tools
   ├── prompts.js    # System and human prompts
+  ├── cli.js        # Interactive CLI interface
   ├── test-agent.js # Test conversation flow
   └── test-llm.js   # Test OpenAI connection
 ```

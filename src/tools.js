@@ -1,4 +1,4 @@
-import { DynamicTool } from "langchain/tools";
+import { DynamicTool } from "@langchain/core/tools";
 
 // Shared state object
 const state = {
@@ -8,16 +8,16 @@ const state = {
 };
 
 // Tool for reading current state
-export const readState = new DynamicTool({
+const readState = new DynamicTool({
     name: "read_state",
     description: "Read the current state of gathered information",
     func: async () => JSON.stringify(state),
 });
 
 // Tool for updating state
-export const updateState = new DynamicTool({
+const updateState = new DynamicTool({
     name: "update_state",
-    description: "Update the state with new information. Input should be in format: field=value",
+    description: "Update the state with new information. Input should be in format: [field=value]",
     func: async (input) => {
         // Extract field and value from input
         const match = input.match(/\[(.*?)=(.*?)\]/);
@@ -37,7 +37,7 @@ export const updateState = new DynamicTool({
 });
 
 // Tool for validating completeness
-export const validateCompleteness = new DynamicTool({
+const validateCompleteness = new DynamicTool({
     name: "validate_completeness",
     description: "Check if all required information is gathered",
     func: async () => {
@@ -48,4 +48,6 @@ export const validateCompleteness = new DynamicTool({
             ? "All required information gathered" 
             : `Missing information: ${missing.join(", ")}`;
     },
-}); 
+});
+
+export const tools = [readState, updateState, validateCompleteness]; 
