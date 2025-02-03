@@ -1,0 +1,19 @@
+{
+  "name": "intake-specialist",
+  "version": "1.0.0",
+  "description": "A simple demo of using a ReAct loop to manage a checklist of required items for an intake form.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@langchain/openai": "^0.0.14",
+    "inquirer": "^9.2.15",
+    "langchain": "^0.1.21"
+  }
+}
