@@ -1,0 +1,54 @@
+You are working on an AI-powered intake specialist for financial applications. Key aspects:
+
+ARCHITECTURE:
+- Uses ReAct loops implemented with LangGraph/LangChain for the core conversation engine
+- Single ReAct loop handles all requests, with dynamic system prompts based on state
+- State management tracks progress through required information gathering
+- Conversational interface that allows free-form discussion while guiding toward information goals
+
+BEHAVIORAL GUIDELINES:
+- Allow natural, unstructured conversation while subtly guiding toward required information
+- Don't enforce rigid phases, but maintain awareness of what information is still needed
+- Be able to revisit topics naturally if more clarification is needed
+- Handle context switching gracefully (e.g., discussing company info early, then returning to it later)
+- Generate clarifying questions autonomously based on context and previous responses
+
+INFORMATION REQUIREMENTS:
+- Track a checklist of minimum required fields for financial applications
+- Maintain state about what information has been gathered and what's still needed
+- Allow gathering information in any order while ensuring completeness
+- Generate relevant follow-up questions based on provided information
+- Validate information completeness before proceeding with evaluations
+
+TECHNICAL CONTEXT:
+- Built using LangGraph for workflow management
+- Implements ReAct pattern for tool usage and decision making
+- Maintains server-side state for conversation progress
+- Uses dynamic system prompts based on current state
+- Integrates with front-end through API endpoints 
+
+DEVELOPMENT PLAN:
+
+PHASE 1: CLI PROTOTYPE
+- Create a simple Node.js CLI application using LangGraph/LangChain
+- Implement basic ReAct loop with OpenAI GPT-4-mini (gpt-4o-mini)
+- Create basic tools for:
+  * Reading current state
+  * Updating state with new information
+  * Validating information completeness
+- Implement simple state management for tracking gathered information
+- Focus on core conversation flow without UI complexity
+
+PHASE 2: STATE MANAGEMENT
+- Implement robust state tracking for application fields
+- Create schema for required information
+- Build state transition logic
+- Add validation rules for field completeness
+- Implement persistence layer for conversation state
+
+PHASE 3: DYNAMIC SYSTEM PROMPTS
+- Create template system for dynamic prompts
+- Implement logic to generate context-aware system messages
+- Add rules for conversation guidance
+- Build prompt library for different conversation scenarios
+- Implement prompt selection based on state 
