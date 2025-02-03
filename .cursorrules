@@ -51,27 +51,45 @@ PHASE 1: CLI PROTOTYPE (COMPLETED)
   ✓ Extract information from natural conversation
   ✓ Guide user toward providing missing information
 
-PHASE 2: ENHANCE STATE MANAGEMENT
+PHASE 2: ENHANCE CONVERSATION CAPABILITIES (IN PROGRESS)
+- Improve tool usage and state management:
+  * Add validation for field values
+  * Add error recovery for invalid inputs
+  * Implement better state persistence
+- Add more sophisticated conversation flows:
+  * Handle corrections to previously provided information
+  * Support clarifying questions for ambiguous inputs
+  * Add context-aware follow-up questions
+- Enhance error handling:
+  * Add graceful recovery from API errors
+  * Improve error messages for users
+  * Add retry logic for transient failures
+
+PHASE 3: EXPAND INFORMATION GATHERING
 - Add more required fields:
   * Company size
   * Industry sector
   * Annual revenue
   * Desired financing amount
-- Implement field validation rules
-- Add field dependencies (e.g., certain fields required based on others)
-- Create schema for required information
-- Add persistence layer for conversation state
+- Implement field dependencies:
+  * Conditional fields based on previous answers
+  * Industry-specific questions
+  * Region-specific requirements
+- Add validation rules:
+  * Format validation for specific fields
+  * Cross-field validation rules
+  * Required vs optional fields
 
-PHASE 3: IMPROVE CONVERSATION CAPABILITIES
-- Add clarifying questions for ambiguous information
-- Handle corrections and updates to previously provided information
-- Add support for tangential questions about the process
-- Implement conversation recovery after errors
-- Add conversation summarization
-
-PHASE 4: DYNAMIC SYSTEM PROMPTS
-- Create template system for dynamic prompts
-- Implement logic to generate context-aware system messages
-- Add rules for conversation guidance
-- Build prompt library for different conversation scenarios
-- Implement prompt selection based on state 
+PHASE 4: IMPROVE USER EXPERIENCE
+- Add conversation summarization:
+  * Provide progress updates
+  * Summarize gathered information
+  * Highlight missing information
+- Implement conversation recovery:
+  * Save conversation state
+  * Allow resuming previous sessions
+  * Handle conversation context switches
+- Add help and guidance:
+  * Provide examples when needed
+  * Offer suggestions for unclear responses
+  * Add command help (e.g., 'help', 'status') 

@@ -1,42 +1,85 @@
-# Intake Specialist
+# AI Intake Specialist
 
-A simple demo of using a ReAct loop to manage a checklist of required items for an intake form. The agent maintains state while having natural conversations with users to gather required information.
+An AI-powered intake specialist for financial applications that uses ReAct patterns to manage natural conversations while gathering required information.
 
-## Current Status
-- Basic CLI interface implemented
-- State management tools created and tested:
-  - `read_state`: Tool that ReAct agent uses to check what information it has
-  - `update_state`: Tool that ReAct agent uses to save new information from conversations
-  - `validate_completeness`: Tool that ReAct agent uses to decide what to ask for next
-- OpenAI integration verified and working
-- System prompt template created and tested
-- ReAct agent implemented and working:
-  - Uses tools to maintain conversation state
-  - Extracts and saves information from natural conversation
-  - Validates completeness of gathered information
+## Features
+
+- Natural conversation flow while gathering required information
+- State management to track progress
+- Tool-based architecture for extensibility
+- Error handling and recovery
+- OpenAI GPT-4 integration
+
+## Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file with your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   ```
 
 ## Running the Application
 
 ### Interactive Mode
+Start the interactive chat using:
 ```bash
-# Start the interactive chat
 npm start
-
-# Then chat with the agent to provide information
-# Type 'exit' to quit
 ```
+
+The application will guide you through the intake process using natural conversation. Type 'exit' to quit at any time.
 
 ### Testing Mode
+Run the automated test conversation:
 ```bash
-# Run the automated test conversation
 npm test
-
-# Test just the OpenAI connection
-node src/test-llm.js
-
-# Test the prompt template
-node src/test-prompt.js
 ```
+
+## Project Structure
+
+- `src/`
+  - `agent.js` - Core ReAct agent implementation
+  - `cli.js` - Interactive CLI interface
+  - `tools.js` - Tool definitions for state management
+  - `prompts.js` - System prompts and templates
+
+## Current Status
+
+✓ Completed:
+- Basic CLI interface implementation
+- State management tools:
+  - `read_state`: Tool for checking information
+  - `update_state`: Tool for saving new information
+  - `validate_completeness`: Tool for determining what to ask next
+- OpenAI integration verified and working
+- System prompt template with:
+  - Agent behavior definition
+  - Tool descriptions
+  - Conversation flow guidance
+- Natural conversation capabilities
+- Basic information extraction
+
+🚧 In Progress:
+- Enhanced conversation capabilities
+- Improved error handling
+- Field validation rules
+- State persistence
+
+## Development
+
+To contribute or modify:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+ISC
 
 ## Example Conversation
 ```
@@ -73,27 +116,6 @@ The agent gathers the following information:
 - Company Name
 - Operating Country
 - Debt Issuance Country
-
-## Setup
-```bash
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env
-# Edit .env to add your OpenAI API key
-```
-
-## Project Structure
-```
-src/
-  ├── agent.js      # ReAct agent implementation
-  ├── tools.js      # State management tools
-  ├── prompts.js    # System and human prompts
-  ├── cli.js        # Interactive CLI interface
-  ├── test-agent.js # Test conversation flow
-  └── test-llm.js   # Test OpenAI connection
-```
 
 ## Development Approach
 Taking small, verifiable steps. Each change should be testable before moving to the next step.
