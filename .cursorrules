@@ -40,14 +40,12 @@ PHASE 1: CLI PROTOTYPE
 ✓ Create basic CLI interface with input/output
 ✓ Define state management structure
 ✓ Test state management tools in isolation
+✓ Set up OpenAI integration
+✓ Create and test system prompt template
 - Implement basic ReAct loop:
-  * Create system prompt template
   * Set up ReAct agent with our tools
+  * Connect tools to state management
   * Test agent with simple conversations
-- Connect state management to ReAct loop:
-  * Verify agent can read state
-  * Verify agent can update state
-  * Test state persistence across conversations
 - Add basic conversation capabilities:
   * Handle greetings and basic questions
   * Extract information from natural conversation

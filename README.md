@@ -8,6 +8,11 @@ A simple demo of using a ReAct loop to manage a checklist of required items for 
   - `read_state`: Tool that ReAct agent will use to check what information it has
   - `update_state`: Tool that ReAct agent will use to save new information from conversations
   - `validate_completeness`: Tool that ReAct agent will use to decide what to ask for next
+- OpenAI integration verified and working
+- System prompt template created and tested:
+  - Defines agent behavior and goals
+  - Includes tool descriptions
+  - Guides natural conversation flow
 
 These tools form the foundation for the ReAct agent. The agent will:
 1. Use these same tools to maintain conversation state
@@ -27,6 +32,10 @@ exit              # Quit the program
 ```bash
 # Install dependencies
 npm install
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env to add your OpenAI API key
 
 # Run the CLI
 npm start
