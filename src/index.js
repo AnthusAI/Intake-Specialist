@@ -49,22 +49,53 @@ const validateCompleteness = {
 // Main chat loop
 async function main() {
     console.log("Welcome to the Intake Specialist Demo!");
-    console.log("You can have a natural conversation while I gather the required information.");
-    console.log("Type 'exit' to quit.\n");
+    console.log("Available commands:");
+    console.log("- read: Show current state");
+    console.log("- update <field> <value>: Update state");
+    console.log("- validate: Check completeness");
+    console.log("- exit: Quit the program\n");
 
     while (true) {
         const { input } = await inquirer.prompt([{
             type: "input",
             name: "input",
-            message: "You:",
+            message: "Command:",
         }]);
 
         if (input.toLowerCase() === "exit") {
             break;
         }
 
-        // TODO: Implement ReAct loop here
-        console.log("AI: This is a placeholder response. ReAct loop implementation coming soon!");
+        const [command, ...args] = input.split(" ");
+
+        try {
+            switch (command.toLowerCase()) {
+                case "read":
+                    console.log("Current state:", await readState.func());
+                    break;
+                case "update":
+                    if (args.length < 2) {
+                        console.log("Usage: update <field> <value>");
+                        break;
+                    }
+                    const [field, ...valueWords] = args;
+                    const value = valueWords.join(" ");
+                    if (field in state) {
+                        console.log(await updateState.func(field, value));
+                    } else {
+                        console.log("Unknown field:", field);
+                        console.log("Available fields:", Object.keys(state).join(", "));
+                    }
+                    break;
+                case "validate":
+                    console.log(await validateCompleteness.func());
+                    break;
+                default:
+                    console.log("Unknown command. Available commands: read, update, validate, exit");
+            }
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
     }
 }
 
