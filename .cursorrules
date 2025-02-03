@@ -51,45 +51,24 @@ PHASE 1: CLI PROTOTYPE (COMPLETED)
   ✓ Extract information from natural conversation
   ✓ Guide user toward providing missing information
 
-PHASE 2: ENHANCE CONVERSATION CAPABILITIES (IN PROGRESS)
-- Improve tool usage and state management:
-  * Add validation for field values
-  * Add error recovery for invalid inputs
-  * Implement better state persistence
-- Add more sophisticated conversation flows:
-  * Handle corrections to previously provided information
-  * Support clarifying questions for ambiguous inputs
-  * Add context-aware follow-up questions
-- Enhance error handling:
-  * Add graceful recovery from API errors
-  * Improve error messages for users
-  * Add retry logic for transient failures
+PHASE 2: CORE FUNCTIONALITY (IN PROGRESS)
+- Fix state management:
+  ✓ Implement proper field updates
+  ✓ Add field validation
+  ✓ Fix state display formatting
+  ✓ Clean up logging output
+- Add remaining core features:
+  * Add numeric validation for amounts
+  * Add basic format validation
+  * Add "help" command support
+  * Add "status" command support
 
-PHASE 3: EXPAND INFORMATION GATHERING
-- Add more required fields:
-  * Company size
-  * Industry sector
-  * Annual revenue
-  * Desired financing amount
-- Implement field dependencies:
-  * Conditional fields based on previous answers
-  * Industry-specific questions
-  * Region-specific requirements
-- Add validation rules:
-  * Format validation for specific fields
-  * Cross-field validation rules
-  * Required vs optional fields
-
-PHASE 4: IMPROVE USER EXPERIENCE
-- Add conversation summarization:
-  * Provide progress updates
-  * Summarize gathered information
-  * Highlight missing information
-- Implement conversation recovery:
-  * Save conversation state
-  * Allow resuming previous sessions
-  * Handle conversation context switches
-- Add help and guidance:
-  * Provide examples when needed
-  * Offer suggestions for unclear responses
-  * Add command help (e.g., 'help', 'status') 
+PHASE 3: POLISH & DOCUMENT
+- Clean up code:
+  * Remove debug logging
+  * Add inline documentation
+  * Standardize error messages
+- Update documentation:
+  * Add usage examples
+  * Document command patterns
+  * Add troubleshooting guide 

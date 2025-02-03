@@ -27,12 +27,18 @@ const updateState = new DynamicTool({
         
         const [_, field, value] = match;
         
+        // Validate field name
         if (!(field in state)) {
-            throw new Error(`Unknown field: ${field}`);
+            throw new Error(`Unknown field: ${field}. Valid fields are: ${Object.keys(state).join(", ")}`);
         }
         
-        state[field] = value;
-        return `Updated ${field} to ${value}`;
+        // Clean up the value and update state
+        const cleanValue = value.trim();
+        state[field] = cleanValue;
+        
+        // Return a more natural response
+        const fieldDisplay = field.replace(/([A-Z])/g, ' $1').toLowerCase().trim();
+        return `I've updated the ${fieldDisplay} to ${cleanValue}.`;
     },
 });
 

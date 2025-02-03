@@ -18,7 +18,8 @@ function formatToOpenAIMessages(steps) {
     return steps.flatMap((step) => {
         if (step.action) {
             return [
-                new AIMessage(`Tool Response: ${step.observation}`),
+                new AIMessage(`Action: ${step.action.tool}\nAction Input: ${step.action.toolInput}`),
+                new HumanMessage(`Tool Response: ${step.observation}`),
             ];
         }
         return [];
@@ -31,10 +32,18 @@ class AgentOutputParser {
         // First, try to find an action
         const actionMatch = text.match(/Action: (.*?)\nAction Input: (.*?)(?=\n|$)/s);
         if (actionMatch) {
+            const tool = actionMatch[1].trim();
+            let toolInput = actionMatch[2].trim();
+            
+            // Special handling for update_state to ensure proper formatting
+            if (tool === "update_state" && !toolInput.startsWith("[")) {
+                toolInput = `[${toolInput}]`;
+            }
+            
             return {
                 type: "tool",
-                tool: actionMatch[1].trim(),
-                toolInput: actionMatch[2].trim(),
+                tool: tool,
+                toolInput: toolInput,
                 log: text,
             };
         }
@@ -97,9 +106,13 @@ const executor = {
         let maxIterations = 5;
         let currentIteration = 0;
         
+        // Show initial state
+        const initialState = await tools[0].func();
+        console.log("\nCurrent Status:");
+        this.printStatus(initialState);
+        
         while (!finalOutput && currentIteration < maxIterations) {
             currentIteration++;
-            console.log(`\nIteration ${currentIteration}`);
             
             try {
                 const response = await agent.invoke({
@@ -108,13 +121,17 @@ const executor = {
                     steps,
                 });
                 
-                console.log("Raw model response:", response);
-                
-                // Parse the response
                 const result = await new AgentOutputParser().parse(response.content);
-                console.log("Parsed response:", result);
                 
                 if (result.type === "finish") {
+                    // If we haven't gathered any information yet, force a read_state
+                    if (steps.length === 0) {
+                        steps.push({
+                            action: { tool: "read_state", toolInput: "" },
+                            observation: await tools[0].func(),
+                        });
+                        continue;
+                    }
                     finalOutput = result.returnValues.output;
                 } else if (result.type === "tool") {
                     const tool = tools.find(t => t.name === result.tool);
@@ -126,10 +143,18 @@ const executor = {
                     
                     try {
                         const observation = await tool.func(result.toolInput);
-                        console.log(`Tool ${result.tool} response:`, observation);
+                        
+                        // Only show status after state updates
+                        if (tool.name === "update_state") {
+                            // Get fresh state after update
+                            const newState = await tools[0].func();
+                            console.log("\nUpdated Status:");
+                            this.printStatus(newState);
+                        }
+                        
                         steps.push({
                             action: result,
-                            observation,
+                            observation: tool.name === "update_state" ? "State updated successfully" : observation,
                         });
                     } catch (error) {
                         console.error("Tool execution error:", error);
@@ -145,10 +170,21 @@ const executor = {
         }
         
         if (!finalOutput) {
-            finalOutput = "I apologize, but I need to take a different approach. Could you please rephrase your request?";
+            finalOutput = "I understand you're looking for financing. To help you better, could you please tell me the name of your company?";
         }
         
         return { output: finalOutput };
+    },
+
+    printStatus(stateJson) {
+        const state = JSON.parse(stateJson);
+        console.log("Required Information:");
+        Object.entries(state).forEach(([key, value]) => {
+            const checkmark = value ? "✓" : "□";
+            const displayKey = key.replace(/([A-Z])/g, ' $1').toLowerCase().trim();
+            console.log(`${checkmark} ${displayKey}: ${value || "Not provided"}`);
+        });
+        console.log(); // Empty line for spacing
     }
 };
 

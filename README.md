@@ -5,8 +5,8 @@ An AI-powered intake specialist for financial applications that uses ReAct patte
 ## Features
 
 - Natural conversation flow while gathering required information
-- State management to track progress
-- Tool-based architecture for extensibility
+- Robust state management with field validation
+- Clean status display showing progress
 - Error handling and recovery
 - OpenAI GPT-4 integration
 
@@ -24,19 +24,32 @@ An AI-powered intake specialist for financial applications that uses ReAct patte
 
 ## Running the Application
 
-### Interactive Mode
-Start the interactive chat using:
+Start the interactive chat:
 ```bash
 npm start
 ```
 
 The application will guide you through the intake process using natural conversation. Type 'exit' to quit at any time.
 
-### Testing Mode
-Run the automated test conversation:
-```bash
-npm test
+## Required Information
+
+The agent gathers the following information:
+- Company Name
+- Operating Country
+- Debt Issuance Country
+
+Each field is tracked and validated as the conversation progresses. The current status is displayed after each update.
+
+## Example Conversation
+
 ```
+You: We need financing.
+
+Current Status:
+Required Information:
+□ company name: Not provided
+□ operating country: Not provided
+□ debt issuance country: Not provided
 
 ## Project Structure
 
@@ -80,42 +93,6 @@ To contribute or modify:
 ## License
 
 ISC
-
-## Example Conversation
-```
-User: Hi there! I'm interested in discussing financing options.
-
-Agent: Hello! I'm glad you reached out to discuss financing options. I'm here 
-to help gather some information for your application. To start, could you 
-please tell me the name of your company?
-
-User: My company is TechStart Solutions.
-
-Agent: Great! Thank you for sharing that. Let me update your company name 
-in the system.
-
-<tool>update_state[companyName=TechStart Solutions]</tool>
-
-Now, could you please let me know the country where your company operates?
-
-User: We're based in Canada, but looking to issue debt in the US.
-
-Agent: Thank you for that information! I'll update both the operating country 
-and the debt issuance country.
-
-<tool>update_state[operatingCountry=Canada]</tool>
-<tool>update_state[debtIssuanceCountry=US]</tool>
-
-Let me check if we have all the required information so far.
-
-<tool>validate_completeness</tool>
-```
-
-## Required Information
-The agent gathers the following information:
-- Company Name
-- Operating Country
-- Debt Issuance Country
 
 ## Development Approach
 Taking small, verifiable steps. Each change should be testable before moving to the next step.
